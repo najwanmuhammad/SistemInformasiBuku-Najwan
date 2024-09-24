@@ -11,7 +11,13 @@
         <h4>Tambah Buku</h4>
         <form method="POST" action="{{route('buku.store')}}">
             @csrf
-            <div>Judul <input type="text" name="judul"></div>
+            <div>
+                Judul
+                <input type="text" name="judul">
+                @error('judul')
+                    <div>{{message}}</div>
+                @enderror
+            </div>
             <div>Penulis <input type="text" name="penulis"></div>
             <div>Harga <input type="text" name="harga"></div>
             <div>Tanggal Terbit <input type="date" name="tanggal_terbit"></div>
