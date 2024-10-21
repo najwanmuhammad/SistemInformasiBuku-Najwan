@@ -18,7 +18,7 @@ class BukuSeeder extends Seeder
                 'judul' => fake()->sentence(3),
                 'penulis' => fake()->name(),
                 'harga' => fake()->numberBetween(10000, 50000),
-                'tanggal_terbit' => fake()->date(),
+                'tanggal_terbit' => fake()->date('Y-m-d'),
             ]);
         }
     }

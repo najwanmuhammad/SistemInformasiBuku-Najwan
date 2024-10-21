@@ -10,4 +10,5 @@ class Book extends Model
     use HasFactory;
 
     protected $table = 'books';
+    protected $dates = ['tanggal_terbit'];
 }
