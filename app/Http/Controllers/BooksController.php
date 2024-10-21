@@ -14,7 +14,7 @@ class BooksController extends Controller
     public function index()
     {
         $batas = 5;
-        $data_buku = Book::orderBy('id', 'desc') -> paginate($batas);
+        $data_buku = Book::orderBy('id', 'asc') -> paginate($batas);
         $no = $batas * ($data_buku -> currentPage() - 1);
         $jumlah_buku = Book::count();
         $total_harga = Book::sum('harga');
@@ -43,15 +43,15 @@ class BooksController extends Controller
         ],
 
         [
-            'judul.required'          => 'Kamu harus mengisi judul terlebih dahulu',
-            'judul.string'            => 'judul harus diisi data bertipe string',
-            'penulis.required'        => 'Kamu harus mengisi penulis terlebih dahulu',
+            'judul.required'          => 'Kolom Judul harus diisi',
+            'judul.string'            => 'Judul harus diisi data bertipe string',
+            'penulis.required'        => 'Kolom Penulis harus diisi',
             'penulis.string'          => 'Penulis harus diisi data bertipe string',
-            'penulis.max'             => 'Penulis maksimal 30 karakter',
-            'harga.required'          => 'Kamu harus mengisi harga terlebih dahulu',
-            'harga.numeric'           => 'Harga harus diisi data bertipe nomor',
-            'tanggal_terbit.required' => 'Kamu harus mengisi tanggal terbit terlebih dahulu',
-            'tanggal_terbit.date'     => 'Tanggal terbit harus diisi data bertipe tanggal'
+            'penulis.max'             => 'Nama Penulis maksimal 30 karakter',
+            'harga.required'          => 'Kolom Harga harus diisi',
+            'harga.numeric'           => 'Harga harus diisi data bertipe numerik',
+            'tanggal_terbit.required' => 'Anda harus mengisi tanggal terbit terlebih dahulu',
+            'tanggal_terbit.date'     => 'Tanggal terbit harus diisi data bertipe date'
         ]);
 
         $buku = new Book();
@@ -70,7 +70,11 @@ class BooksController extends Controller
 
         $cari = $request->kata;
 
-        $data_buku = Book::where('judul','like',"%".$cari."%")->paginate($batas);
+        $data_buku = Book::where('judul','like',"%".$cari."%")
+            ->orWhere('penulis', 'like', "%".$cari."%")
+            ->orWhere('harga', 'like', "%".$cari."%")
+            ->orWhere('tanggal_terbit', 'like', "%".$cari."%")
+            ->paginate($batas);
 
         $no = $batas * ($data_buku->currentPage() - 1);
 
@@ -106,7 +110,15 @@ class BooksController extends Controller
             'judul'             => 'required|string',
             'penulis'           => 'required|string|max:30',
             'harga'             => 'required|numeric',
-            'tanggal_terbit'    => 'required|date'
+            'tanggal_terbit'    => 'required|date',
+        ],
+
+        [
+            'judul.string'            => 'Judul harus diisi data bertipe string',
+            'penulis.string'          => 'Penulis harus diisi data bertipe string',
+            'penulis.max'             => 'Nama Penulis maksimal 30 karakter',
+            'harga.numeric'           => 'Harga harus diisi data bertipe numerik',
+            'tanggal_terbit.date'     => 'Tanggal terbit harus diisi data bertipe date'
         ]);
 
 
