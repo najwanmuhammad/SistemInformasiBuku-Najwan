@@ -42,7 +42,7 @@
 
             <div class="mb-3">
                 <label for="tanggal_terbit" class="form-label">Tahun Terbit:</label>
-                <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value="{{ $buku->tanggal_terbit instanceof \DateTime ? $buku->tanggal_terbit->format('Y-m-d') : $buku->tanggal_terbit }}" required>
+                <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value="{{ $buku->tanggal_terbit instanceof \DateTime ? $buku->tanggal_terbit->format('d/m/Y') : $buku->tanggal_terbit }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>

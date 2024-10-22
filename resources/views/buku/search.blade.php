@@ -16,18 +16,20 @@
 </head>
 <body>
     <div class="container">
-        <h2>Data Buku</h2>
+        <h2 style="margin-top: 2%; margin-bottom: 2%">Data Buku</h2>
         @if (count($data_buku))
             <div class="alert alert-success">
                 Ditemukan <strong>{{ count($data_buku) }}</strong>
-                data dengan kata: <strong>{{ $cari }}</strong></div>
+                data dengan kata: <strong>{{ $cari }}</strong>
+            </div>
+
 		<div class="card">
 			<div class="card-body">
                <a href="{{ route('buku.create') }}" class="btn btn-primary float-end">Tambah Buku</a>
 
                <form action="{{ route('buku.search') }}" method="GET" style="margin-top: 10px;">
                 @csrf
-                <input type="text" name="kata" class="form-control" placeholder="Cari..." style="width: 30%; margin-bottom: 10px;">
+                <input type="text" name="kata" class="form-control" placeholder="Mau cari buku apa..." style="width: 30%; margin-bottom: 10px;">
                </form>
                 <table id="myTable" class="display table table-striped">
                     <thead>
@@ -37,7 +39,8 @@
                             <td>Penulis</td>
                             <td>Harga</td>
                             <td>Tanggal Terbit</td>
-                            <td>Aksi</td>
+                            <td>Edit</td>
+                            <td>Hapus</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,9 +56,13 @@
                                     <div class="col-md-4">
                                         <form action="{{ route('buku.edit', $buku -> id) }}" method="GET">
                                             @csrf
-                                            <button type="submit" class="btn btn-primary float-end; color: white">Update</button>
+                                            <button type="submit" class="btn btn-primary float-end; color: white">Edit</button>
                                         </form>
                                     </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
                                     <div class="col-md-4">
                                         <form action="{{ route('buku.destroy', $buku -> id) }}" method="POST">
                                             @csrf
@@ -72,10 +79,11 @@
                 </table>
                 <div>{{ $data_buku ->links('pagination::bootstrap-5') }}</div>
                 <p>Jumlah buku : {{ $count }} buku</p>
+
                 @else
                     <div class="alert alert-warning">
                         <h4>Data {{ $cari }} tidak ditemukan</h4>
-                        <a href="{{ route('buku.index') }}">Kembali</a></div>
+                        <a href="{{ route('buku.index') }}" class="btn btn-warning">Kembali</a></div>
                 @endif
             </div>
         </div>

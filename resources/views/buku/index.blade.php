@@ -10,20 +10,26 @@
 <body>
     <form action="{{ route('buku.search') }}" method="GET" style="margin-top: 20px; margin-left: 20px;">
         @csrf
-    <input type="text" name="kata" class="form-control" placeholder="Cari..."
+    <input type="text" name="kata" class="form-control" placeholder="Mau cari buku apa..."
     style="width: 30%; margin-bottom: 10px; border: 2px solid #007bff; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);">
 
     <table class="table mt-3">
         @if (Session::has('menambah'))
-            <div class="alert alert-success" id="success-alert" style="background-color: rgb(57, 182, 57); color: white;">{{ Session::get('menambah') }}</div>
+            <div class="alert alert-success" id="success-alert" style="background-color: rgb(57, 182, 57); color: white;">
+                {{ Session::get('menambah') }}
+            </div>
         @endif
 
         @if (Session::has('memperbarui'))
-            <div class="alert alert-success" id="success-alert" style="background-color: rgb(45, 101, 255); color: white;">{{ Session::get('memperbarui') }}</div>
+            <div class="alert alert-success" id="success-alert" style="background-color: rgb(45, 101, 255); color: white;">
+                {{ Session::get('memperbarui') }}
+            </div>
         @endif
 
         @if (Session::has('menghapus'))
-            <div class="alert alert-success" id="success-alert" style="background-color: rgb(255, 98, 98); color: white;">{{ Session::get('menghapus') }}</div>
+            <div class="alert alert-success" id="success-alert" style="background-color: rgb(255, 98, 98); color: white;">
+                {{ Session::get('menghapus') }}
+            </div>
         @endif
 
         <script>
@@ -41,11 +47,11 @@
             <tr>
                 <th>No</th>
                 <th>Judul Buku</th>
-                <th>Penerbit</th>
+                <th>Penulis</th>
                 <th>Harga</th>
                 <th>Tanggal Terbit</th>
+                <th  class="text-center">Edit</th>
                 <th  class="text-center">Hapus</th>
-                <th  class="text-center">Update</th>
             </tr>
         </thead>
         <tbody>
@@ -54,17 +60,17 @@
                 <td>{{ ++$no }}</td>
                 <td>{{$Buku->judul}}</td>
                 <td>{{$Buku->penulis}}</td>
-                <td>Rp. {{number_format($Buku->harga, 2,',','.')}}</td>
+                <td>Rp {{number_format($Buku->harga, 2,',','.')}}</td>
                 <td>{{ \Carbon\Carbon::parse($Buku->tanggal_terbit)->format('d/m/Y') }}</td>
+                <td class="text-center">
+                    <a href="{{ route('buku.edit', $Buku->id) }}" class="btn btn-primary">Edit</a>
+                </td>
                 <td class="text-center">
                     <form action = "{{ route('buku.destroy', $Buku->id) }}" method="post">
                         @csrf
                         @method('delete')
                         <button onclick="return confirm('Yakin mau dihapus')" type="submit" class="btn btn-danger">Hapus</button>
                     </form>
-                </td>
-                <td class="text-center">
-                    <a href="{{ route('buku.edit', $Buku->id) }}" class="btn btn-primary">Update</a>
                 </td>
             @endforeach
         </tbody>
@@ -89,7 +95,7 @@
                     <div class="col-md-6 text-center">
                         <i class="fas fa-dollar-sign fa-3x text-success mb-3"></i>
                         <p class="card-text h5">Total Harga Semua Buku:</p>
-                        <p class="display-4 font-weight-bold text-success">Rp. {{ number_format($total_harga, 2, ',', '.') }}</p>
+                        <p class="display-4 font-weight-bold text-success">Rp {{ number_format($total_harga, 2, ',', '.') }}</p>
                     </div>
                 </div>
             </div>

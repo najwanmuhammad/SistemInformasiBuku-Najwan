@@ -40,7 +40,7 @@
             </div>
             <div class="mb-3">
                 <label for="tanggal_terbit" class="form-label">Tanggal Terbit</label>
-                <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit">
+                <input type="date" class="date form-control" id="tanggal_terbit" name="tanggal_terbit">
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
             <a href="{{Route('buku.index')}}" class="btn btn-secondary">Kembali</a>
@@ -49,7 +49,7 @@
 
     <script type="text/javascript">
         $('.date').datepicker({
-            dateFormat: 'yy/mm/dd',
+            dateFormat: 'yyyy/mm/dd',
             autoclose: true
         });
     </script>
