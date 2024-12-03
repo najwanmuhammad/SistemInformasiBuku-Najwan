@@ -23,12 +23,21 @@
         @endif
 
         <h4 class="mb-4">Tambah Buku</h4>
-        <form method="post" action="{{Route('buku.store')}}">
+        <form method="post" action="{{Route('buku.store')}}" enctype="multipart/form-data">
 
             @csrf
             <div class="mb-3">
                 <label for="judul" class="form-label">Judul</label>
                 <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul buku">
+            </div>
+            <div class="mb-3 row">
+                <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" value="{{ old('photo') }}">
+                    @if ($errors->has('photo'))
+                        <span class="text-danger">{{ $errors->first('photo') }}</span>
+                    @endif
+                </div>
             </div>
             <div class="mb-3">
                 <label for="penulis" class="form-label">Penulis</label>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class LoginRegisterController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth')->except([
+        $this->middleware('guest')->except([
             'logout', 'dashboard'
         ]);
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
@@ -43,6 +44,7 @@ class BooksController extends Controller
             'penulis'           => 'required|string|max:30',
             'harga'             => 'required|numeric',
             'tanggal_terbit'    => 'required|date',
+            'photo'             => 'image|nullable|max:1999'
         ],
 
         [
@@ -62,6 +64,17 @@ class BooksController extends Controller
         $buku->penulis = $request->penulis;
         $buku->harga = $request->harga;
         $buku->tanggal_terbit = $request->tanggal_terbit;
+        if ($request->hasFile('photo')) {
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('photo')->storeAs('photosbook', $filenameSimpan);
+            $buku->photo = $filenameSimpan; // Simpan nama file ke database
+        }
+        else {
+            // tidak ada file yg di upload
+        }
         $buku->save();
 
         return redirect('/buku/index/') -> with('menambah', 'Data buku berhasil disimpan');

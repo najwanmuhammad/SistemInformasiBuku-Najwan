@@ -42,6 +42,7 @@
             <tr>
                 <th>No</th>
                 <th>Judul Buku</th>
+                <th>Foto</th>
                 <th>Penulis</th>
                 <th>Harga</th>
                 <th>Tanggal Terbit</th>
@@ -56,6 +57,7 @@
             <tr>
                 <td>{{ ++$no }}</td>
                 <td>{{$Buku->judul}}</td>
+                <td><img src="{{ asset('storage/photosbook/' . $Buku->photo) }}" style="width:100px; height:100px" alt="No Image"></td>
                 <td>{{$Buku->penulis}}</td>
                 <td>Rp {{number_format($Buku->harga, 2,',','.')}}</td>
                 <td>{{ \Carbon\Carbon::parse($Buku->tanggal_terbit)->format('d/m/Y') }}</td>
