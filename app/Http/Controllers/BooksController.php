@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 class BooksController extends Controller
 {
@@ -19,7 +20,9 @@ class BooksController extends Controller
         $jumlah_buku = Book::count();
         $total_harga = Book::sum('harga');
 
-        return view ('buku.index', compact('batas', 'no', 'data_buku', 'jumlah_buku', 'total_harga'));
+        $isAuthenticated = Auth::check();
+
+        return view ('buku.index', compact('batas', 'no', 'data_buku', 'jumlah_buku', 'total_harga', 'isAuthenticated'));
     }
 
     /**
@@ -80,7 +83,9 @@ class BooksController extends Controller
 
         $count = $data_buku->count();
 
-        return view('buku.search', compact('no', 'data_buku', 'count', 'cari'));
+        $isAuthenticated = Auth::check();
+
+        return view('buku.search', compact('no', 'data_buku', 'count', 'cari', 'isAuthenticated'));
     }
 
     /**
