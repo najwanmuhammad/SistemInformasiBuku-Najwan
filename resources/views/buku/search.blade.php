@@ -1,3 +1,4 @@
+@if($isAuthenticated)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
+
 <body>
     <div class="container">
         <h2 style="margin-top: 2%; margin-bottom: 2%">Data Buku</h2>
@@ -90,3 +92,4 @@
     </div>
 </body>
 </html>
+@endif
