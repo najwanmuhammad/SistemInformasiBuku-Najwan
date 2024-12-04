@@ -46,3 +46,7 @@ Route::get('/buku/search', [BooksController::class, 'search']) -> name('buku.sea
 
 
 Route::resource('gallery', GalleryController::class);
+
+Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+Route::put('/gallery/{id}', [GalleryController::class, 'show'])->name('gallery.show');

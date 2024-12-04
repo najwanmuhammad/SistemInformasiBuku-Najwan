@@ -51,7 +51,7 @@ class GalleryController extends Controller
             $smallFilename = "small_{$basename}.{$extension}";
             $mediumFilename = "medium_{$basename}.{$extension}";
             $largeFilename = "large_{$basename}.{$extension}";
-            
+
             $filenameSimpan = "{$basename}.{$extension}";
             $path = $request->file('picture')->storeAs('posts_image', $filenameSimpan);
         } else {
@@ -65,7 +65,7 @@ class GalleryController extends Controller
         $post->description = $request->input('description');
         $post->save();
 
-        return redirect('gallery')->with('success', 'Berhasil menambahkan data baru');
+        return redirect('gallery')->with('menambah', 'Berhasil menambahkan data baru');
     }
 
     /**
@@ -73,7 +73,8 @@ class GalleryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $gallery = Post::find($id);
+        return view('gallery.show', compact('gallery'));
     }
 
     /**
@@ -81,7 +82,8 @@ class GalleryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $gallery = Post::find($id);
+        return view('gallery.edit', compact('gallery'));
     }
 
     /**
@@ -89,14 +91,42 @@ class GalleryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'picture' => 'image|nullable|max:1999'
+        ]);
+
+        $post = Post::find($id);
+
+        if ($request->hasFile('picture')) {
+            if ($post->picture && $post->picture !== 'noimage.png') {
+                \Storage::delete('posts_image/' . $post->picture);
+            }
+
+            $extension = $request->file('picture')->getClientOriginalExtension();
+            $basename = uniqid() . time();
+            $filenameSimpan = "{$basename}.{$extension}";
+            $path = $request->file('picture')->storeAs('posts_image', $filenameSimpan);
+            $post->picture = $filenameSimpan;
+        }
+
+        $post->title = $request->input('title');
+        $post->description = $request->input('description');
+        $post->save();
+
+        return redirect('gallery')->with('memperbarui', 'Berhasil memperbarui data');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        
+        return redirect('gallery')->with('menghapus', 'Berhasil menghapus data');
     }
 }

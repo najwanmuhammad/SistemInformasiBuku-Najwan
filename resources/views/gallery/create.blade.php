@@ -6,56 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tambah Buku</title>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-
-    <div class="container mt-5">
-
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul style="list-style: none">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-                </ul>
-            </div>
-        @endif
+<body class="min-h-screen bg-gray-100">
+    <div class="flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-md rounded-lg p-8 max-w-lg w-full">
+        <h2 class="text-2xl font-bold mb-6 text-gray-700">Create New Gallery</h2>
 
         <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="mb-3 row">
-                <label for="title" class="col-md-4 col-form-label text-md-end text-start">Title</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="title" name="title">
-                    @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+
+            <!-- Title Field -->
+            <div class="mb-4">
+                <label for="title" class="block text-gray-600 font-medium mb-2">Title</label>
+                <input type="text" class="form-input w-full border border-gray-300 rounded p-2" id="title" name="title" placeholder="Enter title">
+                @error('title')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="mb-3 row">
-                <label for="description" class="col-md-4 col-form-label text-md-end text-start">Description</label>
-                <div class="col-md-6">
-                    <textarea class="form-control" id="description" rows="5" name="description"></textarea>
-                    @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+
+            <!-- Description Field -->
+            <div class="mb-4">
+                <label for="description" class="block text-gray-600 font-medium mb-2">Description</label>
+                <textarea class="form-textarea w-full border border-gray-300 rounded p-2" id="description" rows="5" name="description" placeholder="Enter description"></textarea>
+                @error('description')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="mb-3 row">
-                <label for="input-file" class="col-md-4 col-form-label text-md-end text-start">File input</label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="input-file" name="picture">
-                            <label class="custom-file-label" for="input-file">Choose file</label>
-                        </div>
-                    </div>
-                </div>
+
+            <!-- File Input -->
+            <div class="mb-4">
+                <label for="input-file" class="block text-gray-600 font-medium mb-2">File Input</label>
+                <input type="file" class="form-input w-full border border-gray-300 rounded p-2" id="input-file" name="picture">
+                @error('picture')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-6">
+                <div class="flex justify-between">
+                    <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">Submit</button>
+                    <a href="{{ route('gallery.index') }}" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600">Back</a>
+                </div>
+
+            </div>
         </form>
     </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
