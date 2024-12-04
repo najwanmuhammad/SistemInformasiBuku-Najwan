@@ -5,6 +5,8 @@ use App\Http\Controllers\BooksController;
 
 use App\Http\Controllers\Auth\LoginRegisterController;
 
+use App\Http\Controllers\GalleryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +43,6 @@ Route::get('/buku/edit/{id}', [BooksController::class, 'edit']) -> name('buku.ed
 Route::put('/buku/{id}', [BooksController::class, 'update']) -> name('buku.update');
 
 Route::get('/buku/search', [BooksController::class, 'search']) -> name('buku.search');
+
+
+Route::resource('gallery', GalleryController::class);

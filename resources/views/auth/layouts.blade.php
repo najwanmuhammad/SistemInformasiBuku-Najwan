@@ -21,6 +21,9 @@
                 <ul class="navbar-nav ms-auto">
                     @guest
                         <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('gallery')) ? 'active' : '' }}" href="{{route('gallery.index') }}">Gallery</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
