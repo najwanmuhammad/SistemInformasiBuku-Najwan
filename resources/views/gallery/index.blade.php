@@ -5,6 +5,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
+                <a href="{{ route('gallery.create') }}">Tambah</a>
                 <div class="card-body">
                     <div class="row">
                         @if(count($galleries)>0)
