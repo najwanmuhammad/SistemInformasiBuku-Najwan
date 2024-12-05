@@ -126,7 +126,7 @@ class GalleryController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
-        
+
         return redirect('gallery')->with('menghapus', 'Berhasil menghapus data');
     }
 }
